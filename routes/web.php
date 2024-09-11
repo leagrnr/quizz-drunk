@@ -19,14 +19,18 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+  Route::get('/test', function () {
+       return Inertia::render('Test');
+   });
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('goodanswer', [QuestionController::class, 'verify'])->name('quiz.verify');
-    Route::get('/test', [QuestionController::class, 'random_question'])->name('quiz.random_question');
+
 });
 
-Route::get('/test', [QuestionController::class, 'index']);
+Route::get('/questions', [QuestionController::class, 'index']);
 
 require __DIR__.'/auth.php';

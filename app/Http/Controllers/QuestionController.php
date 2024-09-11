@@ -1,4 +1,6 @@
 <?php
+
+// app/Http/Controllers/QuestionController.php
 namespace App\Http\Controllers;
 
 use App\Models\Question;
