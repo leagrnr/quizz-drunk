@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Inertia\Inertia;
 
 use Illuminate\Http\Request;
 
@@ -17,5 +18,19 @@ class QuestionController extends Controller
 
         // Vérifier si la réponse de l'utilisateur est correcte
         $isCorrect = $request->input('user_answer') === $question->good_answer;
+
+        return Redirect::route('quiz.verify')->with($question);
+    }
+
+    public function random_question(){
+        $question = Question::inRandomOrder()->first();
+
+    
+        dd($question);
+    
+        return Inertia::render('test', [
+            'question' => $question
+        ]);
+
     }
 }
