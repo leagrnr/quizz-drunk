@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,5 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::post('goodanswer', [QuestionController::class, 'verify'])->name('quiz.verify');
     Route::get('/test', [QuestionController::class, 'random_question'])->name('quiz.random_question');
 });
+
+Route::get('/test', [QuestionController::class, 'index']);
 
 require __DIR__.'/auth.php';
