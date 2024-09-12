@@ -1,63 +1,73 @@
-<script setup>
-import { ref, onMounted } from 'vue';
+<script>
 import { usePlayerStore } from '@/stores/playerStore';
-import { Inertia } from '@inertiajs/inertia';
-import '../../css/app.css';
+import Button from '@/Components/Button.vue';
 import Header from "@/Components/Header.vue";
-import Button from "@/Components/Button.vue";
 
-const playerStore = usePlayerStore();
-const playerInputs = ref(['']);
-
-const handleAddPlayerClick = () => {
-    playerInputs.value.push('');
+export default {
+    components: {
+        Header,
+        Button,
+    },
+    data() {
+        return {
+            newPlayer: '',
+        };
+    },
+    computed: {
+        players() {
+            const playerStore = usePlayerStore();
+            return playerStore.players;
+        },
+    },
+    methods: {
+        addNewPlayer() {
+            const playerStore = usePlayerStore();
+            if (this.newPlayer) {
+                playerStore.addPlayer(this.newPlayer);
+                this.newPlayer = '';
+            }
+        },
+        removePlayer(playerName) {
+            const playerStore = usePlayerStore();
+            playerStore.removePlayer(playerName);
+        },
+    },
+    mounted() {
+        const playerStore = usePlayerStore();
+        playerStore.setPlayers(this.$page.props.players);
+    },
 };
-
-const handleSavePlayerClick = () => {
-    playerInputs.value.forEach(name => {
-        if (name.trim() !== '') {
-            playerStore.addPlayer(name);
-        }
-    });
-    playerInputs.value = [''];
-    console.log('Updated playerStore:', playerStore.playerNames);
-};
-
-const navigateToQuestion = () => {
-    Inertia.visit('/question');
-};
-
-onMounted(() => {
-    console.log('Initial playerStore:', playerStore.playerNames);
-});
 </script>
 
 <template>
     <div>
         <Header title="Joueurs"/>
-        <Button name="Ajouter un joueur" @click="handleAddPlayerClick"/>
-        <div v-for="(input, index) in playerInputs" :key="index">
-            <input type="text" v-model="playerInputs[index]" placeholder="Entrez le nom du joueur"/>
-        </div>
-        <Button name="Enregistrer joueur" @click="handleSavePlayerClick"/>
-        <Button name="Aller à la page Question" @click="navigateToQuestion"/>
-        <div v-if="playerStore.playerNames.length">
-            <h2>Liste des joueurs:</h2>
-            <ul>
-                <li v-for="(name, index) in playerStore.playerNames" :key="index">{{ name }}</li>
-            </ul>
-        </div>
+
+            <input v-model="newPlayer" placeholder="Ajouter un joueur" />
+            <Button @click="addNewPlayer" name="Ajouter" />
+
+        <ul>
+            <li v-for="player in players" :key="player" id="listplayer">
+                {{ player }}
+                <Button @click="removePlayer(player)" name="Supprimer" margin="0 0 0 1rem"/>
+            </li>
+        </ul>
     </div>
 </template>
 
-<style scoped>
+<style>
 input {
-    display: block;
-    margin: 1rem auto;
-    padding: 0.5rem;
-    font-size: 1rem;
     color: black;
-    border: 1px solid black;
-    border-radius: 1rem;
+    border-radius: 2rem;
+    margin: 1rem 0 1rem 0;
 }
+
+#listplayer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0 0.5rem 0;;
+}
+
 </style>

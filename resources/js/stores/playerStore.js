@@ -3,13 +3,15 @@ import { defineStore } from 'pinia';
 
 export const usePlayerStore = defineStore('playerStore', {
     state: () => ({
-        playerNames: []
+        players: [],
     }),
+    persist: true,
     actions: {
-        addPlayer(name) {
-            this.playerNames.push(name);
-            console.log('Player added:', name);
-            console.log('Current playerNames:', this.playerNames);
-        }
+        addPlayer(playerName) {
+            this.players.push(playerName);
+        },
+        removePlayer(playerName) {
+            this.players = this.players.filter(player => player !== playerName);
+        },
     }
 });
