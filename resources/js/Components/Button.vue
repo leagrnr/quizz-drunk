@@ -2,6 +2,10 @@
 import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
+    name: {
+        type: String,
+        required: true,
+    },
     type: {
         type: String,
         default: 'button',
@@ -16,15 +20,11 @@ const props = defineProps({
     },
     display: {
         type: String,
-        default: 'inline-block',
+        default: 'block',
     },
     margin: {
         type: String,
         default: 'auto',
-    },
-    name: {
-        type: String,
-        required: true,
     },
 });
 
@@ -48,14 +48,24 @@ const emit = defineEmits(['click']);
 }
 
 .btn-primary {
-    background-color: #007bff;
-    color: white;
+    background-color: #e1d506;
+    color: black;
 }
 
 .btn-secondary {
-    background-color: #6c757d;
+    background-color: #950075;
     color: white;
 }
 
-/* Add more color classes as needed */
+.btn-md {
+    font-size: 1rem;
+}
+
+.btn-lg {
+    font-size: 1.25rem;
+}
+
+.btn-sm {
+    font-size: 0.875rem;
+}
 </style>
