@@ -10,7 +10,7 @@ export default {
     },
     data() {
         return {
-            newPlayer: '',
+            playerFields: JSON.parse(localStorage.getItem('playerFields')) || [''],
         };
     },
     computed: {
@@ -18,19 +18,48 @@ export default {
             const playerStore = usePlayerStore();
             return playerStore.players;
         },
+        allFieldsFilled() {
+            return this.playerFields.every(field => field.trim() !== '');
+        }
     },
     methods: {
         addNewPlayer() {
-            const playerStore = usePlayerStore();
-            if (this.newPlayer) {
-                playerStore.addPlayer(this.newPlayer);
-                this.newPlayer = '';
+            if (!this.allFieldsFilled) {
+                console.log('Not all fields are filled. Showing alert.');
+                this.showAlert();
+                return;
             }
+            const playerStore = usePlayerStore();
+            this.playerFields.forEach((player) => {
+                if (player) {
+                    playerStore.addPlayer(player);
+                }
+            });
+            localStorage.setItem('playerFields', JSON.stringify(this.playerFields));
         },
         removePlayer(playerName) {
             const playerStore = usePlayerStore();
             playerStore.removePlayer(playerName);
         },
+        addPlayerField() {
+            this.playerFields.push('');
+            localStorage.setItem('playerFields', JSON.stringify(this.playerFields));
+        },
+        updatePlayerField(index, value) {
+            this.playerFields[index] = value;
+        },
+        removePlayerField(index) {
+            const playerStore = usePlayerStore();
+            const playerName = this.playerFields[index];
+            if (playerName) {
+                playerStore.removePlayer(playerName);
+            }
+            this.playerFields.splice(index, 1);
+            localStorage.setItem('playerFields', JSON.stringify(this.playerFields));
+        },
+        showAlert() {
+            alert('Veuillez remplir tous les champs.');
+        }
     },
     mounted() {
         const playerStore = usePlayerStore();
@@ -43,15 +72,22 @@ export default {
     <div>
         <Header title="Joueurs"/>
 
-            <input v-model="newPlayer" placeholder="Ajouter un joueur" />
-            <Button @click="addNewPlayer" name="Ajouter" />
+        <div class="nameplayer" v-for="(playerField, index) in playerFields" :key="index">
+            <input v-model="playerFields[index]" placeholder="Ajouter un joueur"
+                   @input="updatePlayerField(index, $event.target.value)"/>
+            <Button @click="removePlayerField(index)" name="X" margin="0 0 0 1rem" class="btn-secondary"/>
+        </div>
 
-        <ul>
-            <li v-for="player in players" :key="player" id="listplayer">
-                {{ player }}
-                <Button @click="removePlayer(player)" name="Supprimer" margin="0 0 0 1rem"/>
-            </li>
-        </ul>
+        <Button color='secondary' @click="addPlayerField" name="Ajouter un joueur" margin="0 auto 1rem auto"/>
+
+        <Button :disabled="!allFieldsFilled" @click="addNewPlayer" name="Commencer"/>
+
+<!--        <ul>-->
+<!--            <li v-for="player in players" :key="player" id="listplayer">-->
+<!--                {{ player }}-->
+<!--                <Button @click="removePlayer(player)" name="Supprimer" margin="0 0 0 1rem"/>-->
+<!--            </li>-->
+<!--        </ul>-->
     </div>
 </template>
 
@@ -67,7 +103,14 @@ input {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin: 1rem 0 0.5rem 0;;
+    margin: 1rem 0 0.5rem 0;
 }
 
+.nameplayer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0 0.5rem 0;
+}
 </style>
