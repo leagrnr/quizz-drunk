@@ -59,7 +59,10 @@ export default {
         },
         showAlert() {
             alert('Veuillez remplir tous les champs.');
-        }
+        },
+        goToListMode() {
+            this.$inertia.visit('/Modeliste');
+        },
     },
     mounted() {
         const playerStore = usePlayerStore();
@@ -80,7 +83,7 @@ export default {
 
         <Button color='secondary' @click="addPlayerField" name="Ajouter un joueur" margin="0 auto 1rem auto"/>
 
-        <Button :disabled="!allFieldsFilled" @click="addNewPlayer" name="Commencer"/>
+        <Button :disabled="!allFieldsFilled" @click="addNewPlayer(); goToListMode()" name="Commencer"/>
 
 <!--        <ul>-->
 <!--            <li v-for="player in players" :key="player" id="listplayer">-->

@@ -41,4 +41,7 @@ Route::get('/Mode1', function () {
     return Inertia::render('Mode1');
 })->name('Mode1');
 
+Route::get('/Modeliste', function () {
+    return Inertia::render('Modeliste');
+})->name('Modeliste');
 require __DIR__.'/auth.php';
