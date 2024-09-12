@@ -1,20 +1,11 @@
-<template>
-    <div>
-        <div v-for="question in questions" :key="question.id">
-            <p>Nom: {{ question.name }}</p>
-            <button class="btn">Bonne réponse: {{ question.good_answer }}</button>
-            <p>Fausse réponse 1: {{ question.false_answer1 }}</p>
-            <p>Fausse réponse 2: {{ question.false_answer2 }}</p>
-            <p>Fausse réponse 3: {{ question.false_answer3 }}</p>
-            <hr>
-        </div>
-    </div>
-</template>
-
 <script>
+import Button from '@/Components/Button.vue';
 import axios from 'axios';
 
 export default {
+    components: {
+        Button
+    },
     data() {
         return {
             questions: []
@@ -32,17 +23,22 @@ export default {
 };
 </script>
 
+
+<template>
+    <div>
+        <div v-for="question in questions" :key="question.id">
+            <h1> {{ question.name }}</h1>
+            <hr>
+            <Button :name="question.good_answer"> {{ question.good_answer }}</Button>
+            <Button :name="question.false_answer1">{{ question.false_answer1 }}</Button> 
+            <Button :name="question.false_answer2"> {{ question.false_answer2 }}</Button>
+            <Button :name="question.false_answer2"> {{ question.false_answer3 }}</Button>
+            <hr>
+        </div>
+    </div>
+</template>
+
+
 <style scoped>
-.btn {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
+
 </style>
