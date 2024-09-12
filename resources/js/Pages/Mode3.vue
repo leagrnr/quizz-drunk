@@ -13,7 +13,7 @@ export default {
         };
     },
     mounted() {
-        axios.get('/questions_mode1')
+        axios.get('/questions_mode3')
             .then(response => {
                 this.questions = response.data;
             })
