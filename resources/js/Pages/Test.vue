@@ -1,10 +1,12 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { usePlayerStore } from '@/stores/playerStore';
+import { Inertia } from '@inertiajs/inertia';
 import '../../css/app.css';
 import Header from "@/Components/Header.vue";
 import Button from "@/Components/Button.vue";
 
-const playerNames = ref([]);
+const playerStore = usePlayerStore();
 const playerInputs = ref(['']);
 
 const handleAddPlayerClick = () => {
@@ -12,23 +14,37 @@ const handleAddPlayerClick = () => {
 };
 
 const handleSavePlayerClick = () => {
-    playerNames.value = playerInputs.value.filter(name => name.trim() !== '');
+    playerInputs.value.forEach(name => {
+        if (name.trim() !== '') {
+            playerStore.addPlayer(name);
+        }
+    });
     playerInputs.value = [''];
+    console.log('Updated playerStore:', playerStore.playerNames);
 };
+
+const navigateToQuestion = () => {
+    Inertia.visit('/question');
+};
+
+onMounted(() => {
+    console.log('Initial playerStore:', playerStore.playerNames);
+});
 </script>
 
 <template>
     <div>
-        <Header title="Joueurs" />
-        <Button name="Ajouter un joueur" @click="handleAddPlayerClick" />
+        <Header title="Joueurs"/>
+        <Button name="Ajouter un joueur" @click="handleAddPlayerClick"/>
         <div v-for="(input, index) in playerInputs" :key="index">
-            <input type="text" v-model="playerInputs[index]" placeholder="Entrez le nom du joueur" />
+            <input type="text" v-model="playerInputs[index]" placeholder="Entrez le nom du joueur"/>
         </div>
-        <Button name="Enregistrer joueur" @click="handleSavePlayerClick" />
-        <div v-if="playerNames.length">
+        <Button name="Enregistrer joueur" @click="handleSavePlayerClick"/>
+        <Button name="Aller à la page Question" @click="navigateToQuestion"/>
+        <div v-if="playerStore.playerNames.length">
             <h2>Liste des joueurs:</h2>
             <ul>
-                <li v-for="(name, index) in playerNames" :key="index">{{ name }}</li>
+                <li v-for="(name, index) in playerStore.playerNames" :key="index">{{ name }}</li>
             </ul>
         </div>
     </div>
@@ -37,8 +53,11 @@ const handleSavePlayerClick = () => {
 <style scoped>
 input {
     display: block;
-    margin: 1rem 0;
+    margin: 1rem auto;
     padding: 0.5rem;
     font-size: 1rem;
+    color: black;
+    border: 1px solid black;
+    border-radius: 1rem;
 }
 </style>
