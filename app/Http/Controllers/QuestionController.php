@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
-    public function index()
+    public function question_mode2()
     {
-        $questions = Question::all();
+        $questions = Question::with('mode')->where('mode_id', 2)->inRandomOrder()->take(1)->get();
+        return response()->json($questions);
+    }
+
+    public function question_mode1()
+    {
+        $questions = Question::with('mode')->where('mode_id', 1)->inRandomOrder()->take(1)->get();
         return response()->json($questions);
     }
 }

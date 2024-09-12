@@ -1,33 +1,39 @@
+
 <template>
     <div>
-        <div v-for="question in questions" :key="question.id">
-            <p>Nom: {{ question.name }}</p>
-            <p>Bonne réponse: {{ question.good_answer }}</p>
-            <p>Fausse réponse 1: {{ question.false_answer1 }}</p>
-            <p>Fausse réponse 2: {{ question.false_answer2 }}</p>
-            <p>Fausse réponse 3: {{ question.false_answer3 }}</p>
-            <hr>
-        </div>
+        <button @click="goToMode2">Mode 2</button>
+    </div>
+    <div>
+        <button @click="goToMode1">Mode 1</button>
     </div>
 </template>
 
 <script>
-import axios from 'axios';
-
+import Button from '@/Components/Button.vue';
 export default {
-    data() {
-        return {
-            questions: []
-        };
-    },
-    mounted() {
-        axios.get('/questions')
-            .then(response => {
-                this.questions = response.data;
-            })
-            .catch(error => {
-                console.error('There was an error fetching the questions:', error);
-            });
+    methods: {
+        goToMode1() {
+            this.$inertia.visit('/Mode1');
+        }, 
+        goToMode2() {
+            this.$inertia.visit('/Mode2');
+        }
     }
+    
 };
 </script>
+
+<style scoped>
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+</style>

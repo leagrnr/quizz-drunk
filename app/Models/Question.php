@@ -9,7 +9,7 @@ class Question extends Model
 {
     use HasFactory;
 
-    protected $table = 'questions';
+    
 
     protected $fillable = [
         'name',
@@ -17,5 +17,11 @@ class Question extends Model
         'false_answer1',
         'false_answer2',
         'false_answer3',
+        'mode_id',
     ];
+
+    public function mode()
+    {
+        return $this->belongsTo(Mode::class);
+    }
 }

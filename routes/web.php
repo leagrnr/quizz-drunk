@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('test', [
+    return Inertia::render('Test', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -31,6 +31,15 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::get('/questions', [QuestionController::class, 'index']);
+Route::get('/questions_mode2', [QuestionController::class, 'question_mode2']);
+Route::get('/questions_mode1', [QuestionController::class, 'question_mode1']);
+
+Route::get('/Mode2', function () {
+    return Inertia::render('Mode2');
+})->name('Mode2');
+
+Route::get('/Mode1', function () {
+    return Inertia::render('Mode1');
+})->name('Mode1');
 
 require __DIR__.'/auth.php';
