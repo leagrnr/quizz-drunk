@@ -19,4 +19,10 @@ class QuestionController extends Controller
         $questions = Question::with('mode')->where('mode_id', 1)->inRandomOrder()->take(1)->get();
         return response()->json($questions);
     }
+
+    public function question_mode3()
+    {
+        $questions = Question::with('mode')->where('mode_id', 3)->inRandomOrder()->take(1)->get();
+        return response()->json($questions);
+    }
 }

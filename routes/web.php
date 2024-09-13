@@ -30,8 +30,13 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::get('/questions_mode3', [QuestionController::class, 'question_mode3']);
 Route::get('/questions_mode2', [QuestionController::class, 'question_mode2']);
 Route::get('/questions_mode1', [QuestionController::class, 'question_mode1']);
+
+Route::get('/Mode3', function () {
+    return Inertia::render('Mode3');
+})->name('Mode3');
 
 Route::get('/Mode2', function () {
     return Inertia::render('Mode2');
@@ -44,4 +49,9 @@ Route::get('/Mode1', function () {
 Route::get('/Modeliste', function () {
     return Inertia::render('Modeliste');
 })->name('Modeliste');
+
+Route::get('/goodreponse', function () {
+    return Inertia::render('GoodReponse');
+})->name('goodreponse');
+
 require __DIR__.'/auth.php';
