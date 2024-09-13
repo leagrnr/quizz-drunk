@@ -26,14 +26,26 @@ const props = defineProps({
         type: String,
         default: 'auto',
     },
+    selected: {
+        type: Boolean,
+        default: false,
+    },
+    isCorrect: {
+        type: Boolean,
+        default: false,
+    },
+    width: {
+        type: String,
+        default: 'auto',
+    }
 });
 
-const emit = defineEmits(['click']);
+const emit = defineEmits(['click', 'navigate']);
 </script>
 
 <template>
-    <button :type="type" :class="['btn', `btn-${color}`, `btn-${size}`]" :style="{ display: display, margin: margin }"
-            @click="$emit('click')">
+    <button :type="type" :class="['btn', `btn-${color}`, `btn-${size}`, { 'btn-selected': selected, 'btn-incorrect': !isCorrect && selected }]" :style="{ display: display, margin: margin }"
+            @click="$emit('click'); $emit('navigate')">
         {{ name }}
     </button>
 </template>
@@ -50,6 +62,7 @@ const emit = defineEmits(['click']);
 .btn-primary {
     background-color: #e1d506;
     color: black;
+    width: 50vw;
 }
 
 .btn-secondary {
@@ -67,5 +80,15 @@ const emit = defineEmits(['click']);
 
 .btn-sm {
     font-size: 0.875rem;
+}
+
+.btn-selected {
+    background-color: #950075;
+    color: white;
+}
+
+.btn-incorrect {
+    background-color: white;
+    color: black;
 }
 </style>

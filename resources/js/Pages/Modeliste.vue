@@ -13,7 +13,7 @@ export default {
     methods: {
         goToMode1() {
             this.$inertia.visit('/Mode1');
-        }, 
+        },
         goToMode2() {
             this.$inertia.visit('/Mode2');
         }

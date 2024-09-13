@@ -27,10 +27,10 @@ export default {
         <div v-for="question in questions" :key="question.id">
             <h1>{{ question.name }}</h1>
             <hr>
-            <Button :name="question.good_answer">{{ question.good_answer }}</Button>
-            <Button :name="question.false_answer1">{{ question.false_answer1 }}</Button>
-            <Button :name="question.false_answer2">{{ question.false_answer2 }}</Button>
-            <Button :name="question.false_answer2">{{ question.false_answer3 }}</Button>
+            <Button :name="question.good_answer" margin="1rem auto 1rem auto">{{ question.good_answer }}</Button>
+            <Button :name="question.false_answer1" margin="1rem auto 1rem auto">{{ question.false_answer1 }}</Button>
+            <Button :name="question.false_answer2" margin="1rem auto 1rem auto" width="50vw">{{ question.false_answer2 }}</Button>
+            <Button :name="question.false_answer3" margin="1rem auto 1rem auto" width="50vw">{{ question.false_answer3 }}</Button>
         </div>
     </div>
 </template>

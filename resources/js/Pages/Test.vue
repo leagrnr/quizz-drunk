@@ -85,12 +85,12 @@ export default {
 
         <Button :disabled="!allFieldsFilled" @click="addNewPlayer(); goToListMode()" name="Commencer"/>
 
-<!--        <ul>-->
-<!--            <li v-for="player in players" :key="player" id="listplayer">-->
-<!--                {{ player }}-->
-<!--                <Button @click="removePlayer(player)" name="Supprimer" margin="0 0 0 1rem"/>-->
-<!--            </li>-->
-<!--        </ul>-->
+        <ul>
+            <li v-for="player in players" :key="player" id="listplayer">
+                {{ player }}
+                <Button @click="removePlayer(player)" name="Supprimer" margin="0 0 0 1rem"/>
+            </li>
+        </ul>
     </div>
 </template>
 
