@@ -62,7 +62,6 @@ const emit = defineEmits(['click', 'navigate']);
 .btn-primary {
     background-color: #e1d506;
     color: black;
-    width: 50vw;
 }
 
 .btn-secondary {

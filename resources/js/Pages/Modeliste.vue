@@ -23,13 +23,13 @@ export default {
     <h1>Choisissez un mode de jeu</h1>
     <hr>
     <div>
-        <Button :name="'Mode Classique'" @click="goToMode1">Mode Classique</Button>
+        <Button :name="'Mode Classique'" @click="goToMode1" margin="1rem auto 1rem auto" >Mode Classique</Button>
     </div>
     <div>
-        <Button :name="'Mode bourré'" @click="goToMode2">Mode bourré</Button>
+        <Button :name="'Mode bourré'" @click="goToMode2" margin="1rem auto 1rem auto">Mode bourré</Button>
     </div>
     <div>
-        <Button :name="'Mode blackout'" @click="goToMode3">Mode blackout</Button>
+        <Button :name="'Mode blackout'" @click="goToMode3" margin="1rem auto 1rem auto">Mode blackout</Button>
     </div>
 </template>
 
