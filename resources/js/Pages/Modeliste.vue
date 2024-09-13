@@ -20,6 +20,8 @@ export default {
 </script>
 
 <template>
+    <h1>Choisissez un mode de jeu</h1>
+    <hr>
     <div>
         <Button :name="'Mode Classique'" @click="goToMode1">Mode Classique</Button>
     </div>
